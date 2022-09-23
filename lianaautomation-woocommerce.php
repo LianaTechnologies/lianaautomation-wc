@@ -3,7 +3,7 @@
  * Plugin Name:       LianaAutomation - WooCommerce
  * Plugin URI:        https://www.lianatech.com/solutions/websites
  * Description:       LianaAutomation for WooCommerce.
- * Version:           1.0.38
+ * Version:           1.0.39
  * Requires at least: 5.2
  * Requires PHP:      7.4
  * Author:            Liana Technologies
