@@ -24,8 +24,7 @@ LianaAutomation WooCommerce is developed and supported by Liana Technologies Oy,
 
 = Where can I find LianaAutomation documentation and user guides? =
 
-For help setting up and configuring Liana Automation, please refer to [LianaAutomation 
-introduction](https://support.lianatech.com/lianaautomation/lianaautomation-introduction.html). 
+For help setting up and configuring Liana Automation, please refer to [LianaAutomation introduction](https://support.lianatech.com/lianaautomation/lianaautomation-introduction.html). 
 
 = Where can I get help or talk to other users about Liana Automation? =
 
