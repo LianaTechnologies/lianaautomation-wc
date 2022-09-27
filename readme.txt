@@ -18,7 +18,7 @@ LianaAutomation means business.
 
 = Contribute and translate =
 
-LianaAutomation WooCommerce is developed and supported by Liana Technologies Oy, part of Ilkka. Join our crew at Github or contact using other means.
+LianaAutomation WooCommerce is developed and supported by Liana Technologies Oy. Join our crew at GitHub or contact using other means.
 
 == Frequently Asked Questions ==
 
@@ -49,7 +49,7 @@ You can also notify us via our support channels.
 
 Request new features and extensions and vote on existing suggestions on our official customer support channels. Our product team regularly review requests and consider them valuable for product planning.
 
-= LianaAutomation Site Tracking is awesome! Can I contribute? =
+= LianaAutomation for WooCommerce is awesome! Can I contribute? =
 
 Yes, you can! Join in on our [GitHub repository](https://github.com/LianaTechnologies/lianaautomation-woocommerce)
 

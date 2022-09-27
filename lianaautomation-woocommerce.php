@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       LianaAutomation WooCommerce
- * Description:       LianaAutomation for WooCommerce.
+ * Description:       LianaAutomation for WooCommerce integrates the LianaAutomation marketing automation platform with a WooCommerce WordPress site.
  * Version:           1.0.39
  * Requires at least: 5.2
  * Requires PHP:      7.4
@@ -9,7 +9,7 @@
  * Author URI:        https://www.lianatech.com
  * License:           GPL-3.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-3.0-standalone.html
- * Text Domain:       lianaautomation
+ * Text Domain:       lianaautomation-woocommerce
  * Domain Path:       /languages
  *
  * PHP Version 7.4
