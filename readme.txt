@@ -1,5 +1,5 @@
 === LianaAutomation WooCommerce ===
-Contributors: jaakkoperoliana, timopohjanvirtaliana
+Contributors: lianatechnologies, jaakkoperoliana, timopohjanvirtaliana
 Tags: automation, online store, ecommerce, e-commerce, woocommerce
 Requires at least: 5.8
 Tested up to: 6.0
@@ -10,15 +10,17 @@ License URI: https://www.gnu.org/licenses/gpl-3.0-standalone.html
 
 == Description ==
 
-LianaAutomation WooCommerce integrates the LianaAutomation marketing automation platform with a WooCommerce WordPress site.
+LianaAutomation for WooCommerce integrates the LianaAutomation marketing automation platform with a WooCommerce WordPress site.
 
-= Grow your business =
+= Create Automations for your WooCommerce site visitors =
 
-LianaAutomation means business. 
+Liana Automation allows you to segment your WooCommerce site visitors and create marketing automations based on those segments.
+With this tool, you can grow your business and create effective automations for many purposes, like retargeting, additional sales, or brand awareness.
+Implement rightly timed marketing actions based on the customer data you possess.
 
 = Contribute and translate =
 
-LianaAutomation WooCommerce is developed and supported by Liana Technologies Oy. Join our crew at GitHub or contact using other means.
+LianaAutomation for WooCommerce is developed and supported by Liana Technologies Oy. Join our crew at GitHub or contact using other means.
 
 == Frequently Asked Questions ==
 
