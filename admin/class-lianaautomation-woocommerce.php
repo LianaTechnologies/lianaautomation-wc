@@ -156,9 +156,9 @@ class LianaAutomation_WooCommerce {
 	 *
 	 * @param string $input String to be sanitized.
 	 *
-	 * @return null
+	 * @return array
 	 */
-	public function lianaAutomationWooCommerceSanitize( $input ) {
+	public function lianaautomation_woocommerce_sanitize( $input ) {
 		$sanitary_values = array();
 
 		if ( isset( $input['lianaautomation_url'] ) ) {
@@ -185,29 +185,30 @@ class LianaAutomation_WooCommerce {
 	}
 
 	/**
-	 * Empty section info
+	 * Section info
 	 *
-	 * @return null
+	 * @return void
 	 */
-	public function lianaAutomationWooCommerceSectionInfo() {
-		// Intentionally empty section here.
-		// Could be used to generate info text.
+	public function lianaautomation_woocommerce_section_info():void {
+			// Generate info text section.
+			printf( '<h2>Important CCPA/GDPR privacy compliancy information</h2>' );
+			printf( '<p>By entering valid API credentials below, you enable this plugin to send personal information of your site visitors to Liana Technologies Oy.</p>' );
+			printf( '<p>In most cases, this plugin <b>must</b> be accompanied by a <i>consent management solution</i>.</p>' );
+			printf( '<p>If unsure, do not use this plugin.</p>' );
 	}
 
 	/**
 	 * Automation URL
 	 *
-	 * @return null
+	 * @return void
 	 */
-	public function lianaAutomationWooCommerceURLCallback() {
+	public function lianaautomation_woocommerce_url_callback():void {
 		printf(
 			'<input class="regular-text" type="text" '
 			. 'name="lianaautomation_woocommerce_options[lianaautomation_url]" '
 			. 'id="lianaautomation_url" value="%s">',
 			isset( $this->lianaautomation_woocommerce_options['lianaautomation_url'] )
-				? esc_attr(
-					$this->lianaautomation_woocommerce_options['lianaautomation_url']
-				)
+				? esc_attr( $this->lianaautomation_woocommerce_options['lianaautomation_url'] )
 				: ''
 		);
 	}
@@ -215,56 +216,47 @@ class LianaAutomation_WooCommerce {
 	/**
 	 * Automation Realm
 	 *
-	 * @return null
+	 * @return void
 	 */
-	public function lianaAutomationWooCommerceRealmCallback() {
+	public function lianaautomation_woocommerce_realm_callback():void {
 		printf(
 			'<input class="regular-text" type="text" '
 			. 'name="lianaautomation_woocommerce_options[lianaautomation_realm]" '
 			. 'id="lianaautomation_realm" value="%s">',
-			isset(
-				$this->lianaautomation_woocommerce_options['lianaautomation_realm']
-			)
-			? esc_attr(
-				$this->lianaautomation_woocommerce_options['lianaautomation_realm']
-			)
-			: ''
+			isset( $this->lianaautomation_woocommerce_options['lianaautomation_realm'] )
+				? esc_attr( $this->lianaautomation_woocommerce_options['lianaautomation_realm'] )
+				: ''
 		);
 	}
+
 	/**
 	 * Automation User
 	 *
-	 * @return null
+	 * @return void
 	 */
-	public function lianaAutomationWooCommerceUserCallback() {
+	public function lianaautomation_woocommerce_user_callback():void {
 		printf(
 			'<input class="regular-text" type="text" '
 			. 'name="lianaautomation_woocommerce_options[lianaautomation_user]" '
 			. 'id="lianaautomation_user" value="%s">',
-			isset(
-				$this->lianaautomation_woocommerce_options['lianaautomation_user']
-			)
-			? esc_attr(
-				$this->lianaautomation_woocommerce_options['lianaautomation_user']
-			)
-			: ''
+			isset( $this->lianaautomation_woocommerce_options['lianaautomation_user'] )
+				? esc_attr( $this->lianaautomation_woocommerce_options['lianaautomation_user'] )
+				: ''
 		);
 	}
 
 	/**
 	 * Automation Key
 	 *
-	 * @return null
+	 * @return void
 	 */
-	public function lianaAutomationWooCommerceKeyCallback() {
+	public function lianaautomation_woocommerce_key_callback():void {
 		printf(
 			'<input class="regular-text" type="text" '
 			. 'name="lianaautomation_woocommerce_options[lianaautomation_key]" '
 			. 'id="lianaautomation_key" value="%s">',
 			isset( $this->lianaautomation_woocommerce_options['lianaautomation_key'] )
-				? esc_attr(
-					$this->lianaautomation_woocommerce_options['lianaautomation_key']
-				)
+				? esc_attr( $this->lianaautomation_woocommerce_options['lianaautomation_key'] )
 				: ''
 		);
 	}
@@ -272,66 +264,57 @@ class LianaAutomation_WooCommerce {
 	/**
 	 * Automation Channel
 	 *
-	 * @return null
+	 * @return void
 	 */
-	public function lianaAutomationWooCommerceChannelCallback() {
+	public function lianaautomation_woocommerce_channel_callback():void {
 		printf(
 			'<input class="regular-text" type="text" '
 			. 'name="lianaautomation_woocommerce_options[lianaautomation_channel]" '
 			. 'id="lianaautomation_channel" value="%s">',
-			isset(
-				$this->lianaautomation_woocommerce_options['lianaautomation_channel']
-			)
-			? esc_attr(
-				$this->lianaautomation_woocommerce_options['lianaautomation_channel']
-			)
-			: ''
+			isset( $this->lianaautomation_woocommerce_options['lianaautomation_channel'] )
+				? esc_attr( $this->lianaautomation_woocommerce_options['lianaautomation_channel'] )
+				: ''
 		);
 	}
 
 	/**
 	 * LianaAutomation WooCommerce Status check
 	 *
-	 * @return null
+	 * @return string
 	 */
-	public function lianaAutomationWooCommerceConnectionCheckCallback() {
+	public function lianaautomation_woocommerce_connection_check_callback() {
 
 		$return = '💥Fail';
-        // phpcs:ignore Generic.Files.LineLength.TooLong
 		if ( empty( $this->lianaautomation_woocommerce_options['lianaautomation_user'] ) ) {
-			echo $return;
+			echo wp_kses_post( $return );
 			return null;
 		}
 		$user
 			= $this->lianaautomation_woocommerce_options['lianaautomation_user'];
 
-        // phpcs:ignore Generic.Files.LineLength.TooLong
 		if ( empty( $this->lianaautomation_woocommerce_options['lianaautomation_key'] ) ) {
-			echo $return;
+			echo wp_kses_post( $return );
 			return null;
 		}
 		$secret
 			= $this->lianaautomation_woocommerce_options['lianaautomation_key'];
 
-        // phpcs:ignore Generic.Files.LineLength.TooLong
 		if ( empty( $this->lianaautomation_woocommerce_options['lianaautomation_realm'] ) ) {
-			echo $return;
+			echo wp_kses_post( $return );
 			return null;
 		}
 		$realm
 			= $this->lianaautomation_woocommerce_options['lianaautomation_realm'];
 
-        // phpcs:ignore Generic.Files.LineLength.TooLong
 		if ( empty( $this->lianaautomation_woocommerce_options['lianaautomation_url'] ) ) {
-			echo $return;
+			echo wp_kses_post( $return );
 			return null;
 		}
 		$url
 			= $this->lianaautomation_woocommerce_options['lianaautomation_url'];
 
-        // phpcs:ignore Generic.Files.LineLength.TooLong
 		if ( empty( $this->lianaautomation_woocommerce_options['lianaautomation_channel'] ) ) {
-			echo $return;
+			echo wp_kses_post( $return );
 			return null;
 		}
 		$channel
@@ -340,39 +323,40 @@ class LianaAutomation_WooCommerce {
 		/**
 		* General variables
 		*/
-		$basePath    = 'rest';             // Base path of the api end points
-		$contentType = 'application/json'; // Content will be send as json
-		$method      = 'POST';             // Method is always POST
+		$base_path    = 'rest';             // Base path of the api end points.
+		$content_type = 'application/json'; // Content will be send as json.
+		$method       = 'POST';              // Method is always POST.
 
-		// Import Data
+		// Import Data!
 		$path = 'v1/pingpong';
 		$data = array(
 			'ping' => 'pong',
 		);
 
-		// Encode our body content data
-		$data = json_encode( $data );
-		// Get the current datetime in ISO 8601
-		$date = date( 'c' );
-		// md5 hash our body content
-		$contentMd5 = md5( $data );
-		// Create our signature
-		$signatureContent = implode(
+		// Encode our body content data.
+		$data = wp_json_encode( $data );
+		// Get the current datetime in ISO 8601.
+		$date = gmdate( 'c' );
+		// md5 hash our body content.
+		$content_md5 = md5( $data );
+		// Create our signature!
+		$signature_content = implode(
 			"\n",
 			array(
 				$method,
-				$contentMd5,
-				$contentType,
+				$content_md5,
+				$content_type,
 				$date,
 				$data,
-				"/{$basePath}/{$path}",
+				"/{$base_path}/{$path}",
 			),
 		);
-		$signature        = hash_hmac( 'sha256', $signatureContent, $secret );
-		// Create the authorization header value
+
+		$signature = hash_hmac( 'sha256', $signature_content, $secret );
+		// Create the authorization header value.
 		$auth = "{$realm} {$user}:" . $signature;
 
-		// Create our full stream context with all required headers
+		// Create our full stream context with all required headers.
 		$ctx = stream_context_create(
 			array(
 				'http' => array(
@@ -382,8 +366,8 @@ class LianaAutomation_WooCommerce {
 						array(
 							"Authorization: {$auth}",
 							"Date: {$date}",
-							"Content-md5: {$contentMd5}",
-							"Content-Type: {$contentType}",
+							"Content-md5: {$content_md5}",
+							"Content-Type: {$content_type}",
 						)
 					),
 					'content' => $data,
@@ -391,13 +375,14 @@ class LianaAutomation_WooCommerce {
 			)
 		);
 
-		// Build full path, open a data stream, and decode the json response
-		$fullPath = "{$url}/{$basePath}/{$path}";
-		$fp       = fopen( $fullPath, 'rb', false, $ctx );
+		// Build full path, open a data stream, and decode the json response.
+		$full_path = "{$url}/{$base_path}/{$path}";
+
+		$fp = fopen( $full_path, 'rb', false, $ctx );
 
 		if ( ! $fp ) {
-			// API failed to connect
-			echo $return;
+			// API failed to connect!
+			echo wp_kses_post( $return );
 			return null;
 		}
 
@@ -405,16 +390,19 @@ class LianaAutomation_WooCommerce {
 		$response = json_decode( $response, true );
 
 		if ( ! empty( $response ) ) {
-			// error_log(print_r($response, true));
+			if ( defined( 'WP_DEBUG' ) && WP_DEBUG === true ) {
+				// phpcs:disable WordPress.PHP.DevelopmentFunctions
+				error_log( print_r( $response, true ) );
+				// phpcs:enable
+			}
 			if ( ! empty( $response['pong'] ) ) {
 				$return = '💚 OK';
 			}
 		}
 
-		echo $return;
+		echo wp_kses_post( $return );
 	}
-
 }
 if ( is_admin() ) {
-	$lianaAutomationWooCommerce = new LianaAutomationWooCommerce();
+	$lianaautomation_woocommerce = new LianaAutomation_WooCommerce();
 }
