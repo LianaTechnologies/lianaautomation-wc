@@ -126,55 +126,79 @@ function lianaautomation_woocommerce_orderstatus( $order_id, $old_status, $new_s
 	}
 
 	if ( empty( $email ) ) {
-		error_log( 'ERROR: No email found on order data. Bailing out.' );
+		if ( defined( 'WP_DEBUG' ) && WP_DEBUG === true ) {
+			// phpcs:disable WordPress.PHP.DevelopmentFunctions
+			error_log( 'ERROR: No email found on order data. Bailing out.' );
+			// phpcs:enable
+		}
 		return false;
 	}
 
 	/**
 	* Retrieve Liana Options values (Array of All Options)
 	*/
-	$lianaautomation_woocommerce_options
-		= get_option( 'lianaautomation_woocommerce_options' );
+	$lianaautomation_woocommerce_options = get_option( 'lianaautomation_woocommerce_options' );
 
 	if ( empty( $lianaautomation_woocommerce_options ) ) {
-		error_log( 'lianaautomation_woocommerce_options was empty' );
+		if ( defined( 'WP_DEBUG' ) && WP_DEBUG === true ) {
+			// phpcs:disable WordPress.PHP.DevelopmentFunctions
+			error_log( 'lianaautomation_woocommerce_options was empty' );
+			// phpcs:enable
+		}
 		return false;
 	}
 
 	// The user id, integer.
 	if ( empty( $lianaautomation_woocommerce_options['lianaautomation_user'] ) ) {
-		error_log( 'lianaautomation_woocommerce_options lianaautomation_user empty' );
+		if ( defined( 'WP_DEBUG' ) && WP_DEBUG === true ) {
+			// phpcs:disable WordPress.PHP.DevelopmentFunctions
+			error_log( 'lianaautomation_woocommerce_options lianaautomation_user empty' );
+			// phpcs:enable
+		}
 		return false;
 	}
 	$user = $lianaautomation_woocommerce_options['lianaautomation_user'];
 
 	// Hexadecimal secret string.
 	if ( empty( $lianaautomation_woocommerce_options['lianaautomation_key'] ) ) {
-		error_log( 'lianaautomation_woocommerce_options lianaautomation_key empty' );
+		if ( defined( 'WP_DEBUG' ) && WP_DEBUG === true ) {
+			// phpcs:disable WordPress.PHP.DevelopmentFunctions
+			error_log( 'lianaautomation_woocommerce_options lianaautomation_key empty' );
+			// phpcs:enable
+		}
 		return false;
 	}
 	$secret = $lianaautomation_woocommerce_options['lianaautomation_key'];
 
 	// The base url for our API installation.
 	if ( empty( $lianaautomation_woocommerce_options['lianaautomation_url'] ) ) {
-		error_log( 'lianaautomation_woocommerce_options lianaautomation_url empty' );
+		if ( defined( 'WP_DEBUG' ) && WP_DEBUG === true ) {
+			// phpcs:disable WordPress.PHP.DevelopmentFunctions
+			error_log( 'lianaautomation_woocommerce_options lianaautomation_url empty' );
+			// phpcs:enable
+		}
 		return false;
 	}
 	$url = $lianaautomation_woocommerce_options['lianaautomation_url'];
 
 	// The realm of our API installation, all caps alphanumeric string.
 	if ( empty( $lianaautomation_woocommerce_options['lianaautomation_realm'] ) ) {
-		error_log( 'lianaautomation_woocommerce_options lianaautomation_realm empty' );
+		if ( defined( 'WP_DEBUG' ) && WP_DEBUG === true ) {
+			// phpcs:disable WordPress.PHP.DevelopmentFunctions
+			error_log( 'lianaautomation_woocommerce_options lianaautomation_realm empty' );
+			// phpcs:enable
+		}
 		return false;
 	}
 	$realm = $lianaautomation_woocommerce_options['lianaautomation_realm'];
 
 	// The channel ID of our automation.
 	if ( empty( $lianaautomation_woocommerce_options['lianaautomation_channel'] ) ) {
-		error_log(
-			'lianaautomation_woocommerce_options '
-			. 'lianaautomation_channel empty'
-		);
+		if ( defined( 'WP_DEBUG' ) && WP_DEBUG === true ) {
+			// phpcs:disable WordPress.PHP.DevelopmentFunctions
+			error_log( 'lianaautomation_woocommerce_options lianaautomation_channel empty' );
+			// phpcs:enable
+		}
 		return false;
 	}
 	$channel = $lianaautomation_woocommerce_options['lianaautomation_channel'];
@@ -246,7 +270,8 @@ function lianaautomation_woocommerce_orderstatus( $order_id, $old_status, $new_s
 
 	// Build full path, open a data stream, and decode the json response.
 	$full_path = "{$url}/{$base_path}/{$path}";
-	$fp       = fopen( $full_path, 'rb', false, $ctx );
+
+	$fp = fopen( $full_path, 'rb', false, $ctx );
 	if ( ! $fp ) {
 		// API failed to connect.
 		return null;
@@ -254,7 +279,7 @@ function lianaautomation_woocommerce_orderstatus( $order_id, $old_status, $new_s
 	$response = stream_get_contents( $fp );
 	$response = json_decode( $response, true );
 
-};
+}
 
 // This hook for order status changes in processing with line_item data intact!
 add_action( 'woocommerce_order_status_changed', 'lianaautomation_woocommerce_orderstatus', 10, 3 );
