@@ -9,5 +9,5 @@ This plugin provides the following events: order, orderrow
 ## Oneliner to create installable plugin from the repo directory
 
 ```
-zip -r lianaautomation-woocommerce.zip lianaautomation-woocommerce -x "lianaautomation-woocommerce/.*" 
+zip -r lianaautomation-wc.zip lianaautomation-wc -x "lianaautomation-wc/.*" 
 ```

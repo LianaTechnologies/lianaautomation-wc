@@ -1,4 +1,4 @@
-=== LianaAutomation WooCommerce ===
+=== LianaAutomation WC ===
 Contributors: lianatechnologies, jaakkoperoliana, timopohjanvirtaliana
 Tags: automation, online store, ecommerce, e-commerce, woocommerce
 Requires at least: 5.8
