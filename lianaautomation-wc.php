@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       LianaAutomation WooCommerce
+ * Plugin Name:       LianaAutomation WC
  * Description:       LianaAutomation for WooCommerce integrates the LianaAutomation marketing automation platform with a WooCommerce WordPress site.
  * Version:           1.0.39
  * Requires at least: 5.2
@@ -9,7 +9,7 @@
  * Author URI:        https://www.lianatech.com
  * License:           GPL-3.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-3.0-standalone.html
- * Text Domain:       lianaautomation-woocommerce
+ * Text Domain:       lianaautomation-wc
  * Domain Path:       /languages
  *
  * PHP Version 7.4
@@ -28,23 +28,23 @@ require_once dirname( __FILE__ ) . '/includes/lianaautomation-cookie.php';
  * Include WooCommerce Order Status handler code
  */
 require_once dirname( __FILE__ )
-	. '/includes/lianaautomation-woocommerce-orderstatus.php';
+	. '/includes/lianaautomation-wc-orderstatus.php';
 
 /**
  * Include WooCommerce Login handler code
  */
 require_once dirname( __FILE__ )
-	. '/includes/lianaautomation-woocommerce-login.php';
+	. '/includes/lianaautomation-wc-login.php';
 
 /**
  * Include WooCommerce Customer handler code
  */
 require_once dirname( __FILE__ )
-	. '/includes/lianaautomation-woocommerce-customer.php';
+	. '/includes/lianaautomation-wc-customer.php';
 
 /**
  * Conditionally include admin panel code
  */
 if ( is_admin() ) {
-	require_once dirname( __FILE__ ) . '/admin/class-lianaautomation-woocommerce.php';
+	require_once dirname( __FILE__ ) . '/admin/class-lianaautomation-wc.php';
 }
