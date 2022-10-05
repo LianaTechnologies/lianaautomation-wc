@@ -1,6 +1,6 @@
 <?php
 /**
- * LianaAutomation WooCommerce Customer handler
+ * LianaAutomation for WooCommerce Customer handler
  *
  * PHP Version 7.4
  *
@@ -10,14 +10,14 @@
  */
 
 /**
- * Define the LianaAutomation_WooCommerce_orderstatus callback
+ * Define the lianaautomation_wc_orderstatus callback
  *
  * @param int    $customer_id WooCommerce customer id (of the new customer).
  * @param object $customer    WooCommerce customer object (of the new customer).
  *
  * @return bool
  */
-function lianaautomation_woocommerce_customer( $customer_id, $customer ) {
+function lianaautomation_wc_customer( $customer_id, $customer ) {
 
 	$email = $customer['user_email'];
 
@@ -44,71 +44,71 @@ function lianaautomation_woocommerce_customer( $customer_id, $customer ) {
 	/**
 	* Retrieve Liana Options values (Array of All Options)
 	*/
-	$lianaautomation_woocommerce_options = get_option( 'lianaautomation_woocommerce_options' );
+	$lianaautomation_wc_options = get_option( 'lianaautomation_wc_options' );
 
-	if ( empty( $lianaautomation_woocommerce_options ) ) {
+	if ( empty( $lianaautomation_wc_options ) ) {
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG === true ) {
 			// phpcs:disable WordPress.PHP.DevelopmentFunctions
-			error_log( 'lianaautomation_woocommerce_options was empty' );
+			error_log( 'lianaautomation_wc_options was empty' );
 			// phpcs:enable
 		}
 		return false;
 	}
 
 	// The user id, integer.
-	if ( empty( $lianaautomation_woocommerce_options['lianaautomation_user'] ) ) {
+	if ( empty( $lianaautomation_wc_options['lianaautomation_user'] ) ) {
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG === true ) {
 			// phpcs:disable WordPress.PHP.DevelopmentFunctions
-			error_log( 'lianaautomation_woocommerce_options lianaautomation_user empty' );
+			error_log( 'lianaautomation_wc_options lianaautomation_user empty' );
 			// phpcs:enable
 		}
 		return false;
 	}
-	$user = $lianaautomation_woocommerce_options['lianaautomation_user'];
+	$user = $lianaautomation_wc_options['lianaautomation_user'];
 
 	// Hexadecimal secret string.
-	if ( empty( $lianaautomation_woocommerce_options['lianaautomation_key'] ) ) {
+	if ( empty( $lianaautomation_wc_options['lianaautomation_key'] ) ) {
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG === true ) {
 			// phpcs:disable WordPress.PHP.DevelopmentFunctions
-			error_log( 'lianaautomation_woocommerce_options lianaautomation_key empty' );
+			error_log( 'lianaautomation_wc_options lianaautomation_key empty' );
 			// phpcs:enable
 		}
 		return false;
 	}
-	$secret = $lianaautomation_woocommerce_options['lianaautomation_key'];
+	$secret = $lianaautomation_wc_options['lianaautomation_key'];
 
 	// The base url for our API installation.
-	if ( empty( $lianaautomation_woocommerce_options['lianaautomation_url'] ) ) {
+	if ( empty( $lianaautomation_wc_options['lianaautomation_url'] ) ) {
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG === true ) {
 			// phpcs:disable WordPress.PHP.DevelopmentFunctions
-			error_log( 'lianaautomation_woocommerce_options lianaautomation_url empty' );
+			error_log( 'lianaautomation_wc_options lianaautomation_url empty' );
 			// phpcs:enable
 		}
 		return false;
 	}
-	$url = $lianaautomation_woocommerce_options['lianaautomation_url'];
+	$url = $lianaautomation_wc_options['lianaautomation_url'];
 
 	// The realm of our API installation, all caps alphanumeric string.
-	if ( empty( $lianaautomation_woocommerce_options['lianaautomation_realm'] ) ) {
+	if ( empty( $lianaautomation_wc_options['lianaautomation_realm'] ) ) {
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG === true ) {
 			// phpcs:disable WordPress.PHP.DevelopmentFunctions
-			error_log( 'lianaautomation_woocommerce_options lianaautomation_realm empty' );
+			error_log( 'lianaautomation_wc_options lianaautomation_realm empty' );
 			// phpcs:enable
 		}
 		return false;
 	}
-	$realm = $lianaautomation_woocommerce_options['lianaautomation_realm'];
+	$realm = $lianaautomation_wc_options['lianaautomation_realm'];
 
 	// The channel ID of our automation.
-	if ( empty( $lianaautomation_woocommerce_options['lianaautomation_channel'] ) ) {
+	if ( empty( $lianaautomation_wc_options['lianaautomation_channel'] ) ) {
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG === true ) {
 			// phpcs:disable WordPress.PHP.DevelopmentFunctions
-			error_log( 'lianaautomation_woocommerce_options lianaautomation_channel empty' );
+			error_log( 'lianaautomation_wc_options lianaautomation_channel empty' );
 			// phpcs:enable
 		}
 		return false;
 	}
-	$channel = $lianaautomation_woocommerce_options['lianaautomation_channel'];
+	$channel = $lianaautomation_wc_options['lianaautomation_channel'];
 
 	/**
 	* General variables
@@ -191,7 +191,7 @@ function lianaautomation_woocommerce_customer( $customer_id, $customer ) {
 
 add_action(
 	'woocommerce_created_customer',
-	'lianaautomation_woocommerce_customer',
+	'lianaautomation_wc_customer',
 	10,
 	3
 );

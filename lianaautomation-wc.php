@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       LianaAutomation WC
- * Description:       LianaAutomation for WooCommerce integrates the LianaAutomation marketing automation platform with a WooCommerce WordPress site.
+ * Description:       LianaAutomation for WooCommerce integrates the LianaAutomation marketing automation platform with a WordPress site with the WooCommerce plugin.
  * Version:           1.0.39
  * Requires at least: 5.2
  * Requires PHP:      7.4
