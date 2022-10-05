@@ -43,7 +43,7 @@ LianaAutomation, there could be a conflict between LianaAutomation and an outdat
 
 = Where can I report bugs? =
 
-Report bugs on our [GitHub repository](https://github.com/LianaTechnologies/lianaautomation-woocommerce/issues).
+Report bugs on our [GitHub repository](https://github.com/LianaTechnologies/lianaautomation-wc/issues).
 
 You can also notify us via our support channels.
 
@@ -53,7 +53,7 @@ Request new features and extensions and vote on existing suggestions on our offi
 
 = LianaAutomation for WooCommerce is awesome! Can I contribute? =
 
-Yes, you can! Join in on our [GitHub repository](https://github.com/LianaTechnologies/lianaautomation-woocommerce)
+Yes, you can! Join in on our [GitHub repository](https://github.com/LianaTechnologies/lianaautomation-wc)
 
 = Where can I find REST API documentation? =
 
