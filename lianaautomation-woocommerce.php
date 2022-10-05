@@ -46,5 +46,5 @@ require_once dirname( __FILE__ )
  * Conditionally include admin panel code
  */
 if ( is_admin() ) {
-	require_once dirname( __FILE__ ) . '/admin/lianaautomation-admin.php';
+	require_once dirname( __FILE__ ) . '/admin/class-lianaautomation-woocommerce.php';
 }
