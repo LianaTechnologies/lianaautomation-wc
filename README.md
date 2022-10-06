@@ -1,8 +1,8 @@
 # LianaAutomation Plugin for WooCommerce
 
-This plugin provides necessary functions to integrate WooCommerce with LianaAutomation marketing automation platform.
+This plugin provides necessary functions to integrate WordPress and WooCommerce with LianaAutomation marketing automation platform.
 
-This plugin provides the following events: order, orderrow
+This plugin provides the following events: customer, login, order, orderrow
 
 # Information for Developers:
 

@@ -10,7 +10,7 @@ License URI: https://www.gnu.org/licenses/gpl-3.0-standalone.html
 
 == Description ==
 
-LianaAutomation for WooCommerce integrates the LianaAutomation marketing automation platform with a WooCommerce WordPress site.
+LianaAutomation for WooCommerce integrates the LianaAutomation marketing automation platform with a WordPress site with a WooCommerce plugin.
 
 = Create Automations for your WooCommerce site visitors =
 
