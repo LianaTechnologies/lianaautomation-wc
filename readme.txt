@@ -2,7 +2,7 @@
 Contributors: lianatechnologies, jaakkoperoliana, timopohjanvirtaliana
 Tags: automation, online store, ecommerce, e-commerce, woocommerce
 Requires at least: 5.8
-Tested up to: 6.1
+Tested up to: 6.2
 Requires PHP: 7.4
 Stable tag: 1.0.39
 License: GPL-3.0-or-later
@@ -26,7 +26,7 @@ LianaAutomation for WooCommerce is developed and supported by Liana Technologies
 
 = Where can I find LianaAutomation documentation and user guides? =
 
-For help setting up and configuring Liana Automation, please refer to [LianaAutomation introduction](https://support.lianatech.com/lianaautomation/lianaautomation-introduction.html). 
+For help setting up and configuring Liana Automation, please refer to [LianaAutomation introduction](https://support.lianatech.com/hc/en-us/categories/4409287060881-LianaAutomation).
 
 = Where can I get help or talk to other users about Liana Automation? =
 
@@ -38,7 +38,7 @@ Yes, this plugin should work with any theme.
 
 = My site broke – what do I do? =
 
-If you noticed the error after updating a theme or plugin, there might be compatibility issues between it and LianaAutomation. If the issue appeared after updating 
+If you noticed the error after updating a theme or plugin, there might be compatibility issues between it and LianaAutomation. If the issue appeared after updating
 LianaAutomation, there could be a conflict between LianaAutomation and an outdated theme or plugin.
 
 = Where can I report bugs? =
@@ -57,7 +57,7 @@ Yes, you can! Join in on our [GitHub repository](https://github.com/LianaTechnol
 
 = Where can I find REST API documentation? =
 
-REST API documentation of Automation product is available at [our support site](https://support.lianatech.com/lianaautomation/rest-api/importing-data.html).
+REST API documentation of Automation product is available at [our support site](https://support.lianatech.com/hc/en-us/articles/5349901699229-Importing-Data).
 
 == Installation ==
 
@@ -68,14 +68,14 @@ REST API documentation of Automation product is available at [our support site](
 
 = Automatic installation =
 
-Automatic installation is the easiest option -- WordPress will handle the file transfer, and you won’t need to leave your web browser. To do an automatic install of 
+Automatic installation is the easiest option -- WordPress will handle the file transfer, and you won’t need to leave your web browser. To do an automatic install of
 LianaAutomation plugin, log in to your WordPress dashboard, navigate to the Plugins menu, and click “Add New.”
- 
+
 In the search field type “LianaAutomation” then click “Search Plugins”. Once you’ve found us, you can install it by clicking “Install Now” and WordPress will take it from there.
 
 = Manual installation =
 
-Manual installation method requires downloading the LianaAutomation plugin and uploading it to your web server via your favorite FTP application. The WordPress codex contains 
+Manual installation method requires downloading the LianaAutomation plugin and uploading it to your web server via your favorite FTP application. The WordPress codex contains
 [instructions on how to do this here](https://wordpress.org/support/article/managing-plugins/#manual-plugin-installation).
 
 = Updating =
