@@ -2,7 +2,7 @@
 Contributors: lianatechnologies, jaakkoperoliana, timopohjanvirtaliana
 Tags: automation, online store, ecommerce, e-commerce, woocommerce
 Requires at least: 5.8
-Tested up to: 6.2
+Tested up to: 6.3
 Requires PHP: 7.4
 Stable tag: 1.0.39
 License: GPL-3.0-or-later
@@ -10,17 +10,21 @@ License URI: https://www.gnu.org/licenses/gpl-3.0-standalone.html
 
 == Description ==
 
-LianaAutomation for WooCommerce integrates the LianaAutomation marketing automation platform with a WordPress site with a WooCommerce plugin.
+LianaAutomation for WooCommerce integrates the LianaAutomation marketing automation platform with a WordPress site with a WooCommerce plugin. All new orders and order rows from WooCommerce will be automatically exported as events to LianaAutomation. The plugin enables segmentation and creation of automations in the marketing automation solution LianaAutomation, based on the online store's order data.
 
 = Create Automations for your WooCommerce site visitors =
 
-Liana Automation allows you to segment your WooCommerce site visitors and create marketing automations based on those segments.
-With this tool, you can grow your business and create effective automations for many purposes, like retargeting, additional sales, or brand awareness.
+LianaAutomation allows you to collect data from your WooCommerce site, create segments based on the data, and create marketing automations based on those segments.
+With this tool, you can grow your business and create effective automations for many purposes, like retargeting, additional sales, or brand awareness. Use automations for upselling and cross-selling, activating passive customers, and strengthening customer loyalty.
 Implement rightly timed marketing actions based on the customer data you possess.
 
 = Contribute and translate =
 
-LianaAutomation for WooCommerce is developed and supported by Liana Technologies Oy. Join our crew at GitHub or contact using other means.
+LianaAutomation for WooCommerce is developed and supported by Liana Technologies Oy. Join our crew at GitHub or contact us using other means.
+
+== Screenshots ==
+
+1. WooCommerce orderrow event results in LianaAutomation
 
 == Frequently Asked Questions ==
 
