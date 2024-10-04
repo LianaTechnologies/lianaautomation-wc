@@ -2,9 +2,9 @@
 Contributors: lianatechnologies, jaakkoperoliana, timopohjanvirtaliana
 Tags: automation, online store, ecommerce, e-commerce, woocommerce
 Requires at least: 5.8
-Tested up to: 6.3
-Requires PHP: 7.4
-Stable tag: 1.0.39
+Tested up to: 6.6.2
+Requires PHP: 8.1
+Stable tag: 1.0.41
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0-standalone.html
 
@@ -67,8 +67,8 @@ REST API documentation of Automation product is available at [our support site](
 
 = Minimum Requirements =
 
-* PHP 7.4 or greater is recommended
-* MySQL 5.7 or greater is recommended
+* PHP 8.3 or greater is recommended
+* MariaDB 10.11 LTS or greater is recommended
 
 = Automatic installation =
 
@@ -87,5 +87,11 @@ Manual installation method requires downloading the LianaAutomation plugin and u
 Automatic updates should work smoothly, but we still recommend you back up your site.
 
 == Changelog ==
+
+= 1.0.41 2024-10-04 =
+* **Change:** Added support for multiple user meta keys
+* **Support:** Tested to be working with WordPress 6.6.2
+
+= 1.0.40 2024-05-30 = Added support for marketing permissions
 
 = 1.0.39 2022-09-23 = Initial public release

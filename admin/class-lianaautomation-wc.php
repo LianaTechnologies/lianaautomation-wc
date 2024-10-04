@@ -2,7 +2,7 @@
 /**
  * LianaAutomation WooCommerce admin panel
  *
- * PHP Version 7.4
+ * PHP Version 8.1
  *
  * @package  LianaAutomation
  * @license  https://www.gnu.org/licenses/gpl-3.0-standalone.html GPL-3.0-or-later
@@ -18,6 +18,13 @@
  */
 class LianaAutomation_WC {
 	/**
+	 * LianaAutomation WooCommerce options
+	 *
+	 * @var array
+	 */
+	public $lianaautomation_wc_options;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {
@@ -30,7 +37,7 @@ class LianaAutomation_WC {
 	 *
 	 * @return void
 	 */
-	public function lianaautomation_wc_add_plugin_page():void {
+	public function lianaautomation_wc_add_plugin_page(): void {
 		global $admin_page_hooks;
 
 		// Only create the top level menu if it doesn't exist (via another plugin).
@@ -58,7 +65,6 @@ class LianaAutomation_WC {
 		 * Remove the duplicate of the top level menu item from the sub menu to make things pretty.
 		 */
 		remove_submenu_page( 'lianaautomation', 'lianaautomation' );
-
 	}
 
 	/**
@@ -66,7 +72,7 @@ class LianaAutomation_WC {
 	 *
 	 * @return void
 	 */
-	public function lianaautomation_wc_create_admin_page():void {
+	public function lianaautomation_wc_create_admin_page(): void {
 		$this->lianaautomation_wc_options = get_option( 'lianaautomation_wc_options' ); ?>
 		<div class="wrap">
 			<h2>LianaAutomation API Options for WooCommerce Order Tracking</h2>
@@ -87,7 +93,7 @@ class LianaAutomation_WC {
 	 *
 	 * @return void
 	 */
-	public function lianaautomation_wc_page_init():void {
+	public function lianaautomation_wc_page_init(): void {
 		register_setting(
 			'lianaautomation_wc_option_group', // option_group.
 			'lianaautomation_wc_options', // option_name.
@@ -141,6 +147,22 @@ class LianaAutomation_WC {
 			'lianaautomation_wc_section' // section.
 		);
 
+		add_settings_field(
+			'lianaautomation_wc_marketing_permission', // id.
+			'User meta key for Marketing Permission', // title.
+			array( $this, 'lianaautomation_wc_marketing_permission_callback' ), // callback.
+			'lianaautomation_wc_admin', // page.
+			'lianaautomation_wc_section' // section.
+		);
+
+		add_settings_field(
+			'lianaautomation_wc_user_meta_keys', // id.
+			'Additional user meta keys', // title.
+			array( $this, 'lianaautomation_wc_user_meta_keys_callback' ), // callback.
+			'lianaautomation_wc_admin', // page.
+			'lianaautomation_wc_section' // section.
+		);
+
 		// Status check.
 		add_settings_field(
 			'lianaautomation_wc_status_check', // id.
@@ -181,6 +203,14 @@ class LianaAutomation_WC {
 			$sanitary_values['lianaautomation_channel']
 				= sanitize_text_field( $input['lianaautomation_channel'] );
 		}
+		if ( isset( $input['lianaautomation_marketing_permission'] ) ) {
+			$sanitary_values['lianaautomation_marketing_permission']
+				= sanitize_text_field( $input['lianaautomation_marketing_permission'] );
+		}
+		if ( isset( $input['lianaautomation_user_meta_keys'] ) ) {
+			$sanitary_values['lianaautomation_user_meta_keys']
+				= sanitize_text_field( $input['lianaautomation_user_meta_keys'] );
+		}
 		return $sanitary_values;
 	}
 
@@ -189,7 +219,7 @@ class LianaAutomation_WC {
 	 *
 	 * @return void
 	 */
-	public function lianaautomation_wc_section_info():void {
+	public function lianaautomation_wc_section_info(): void {
 			// Generate info text section.
 			printf( '<h2>Important CCPA/GDPR privacy compliancy information</h2>' );
 			printf( '<p>By entering valid API credentials below, you enable this plugin to send personal information of your site visitors to Liana Technologies Oy.</p>' );
@@ -202,7 +232,7 @@ class LianaAutomation_WC {
 	 *
 	 * @return void
 	 */
-	public function lianaautomation_wc_url_callback():void {
+	public function lianaautomation_wc_url_callback(): void {
 		printf(
 			'<input class="regular-text" type="text" '
 			. 'name="lianaautomation_wc_options[lianaautomation_url]" '
@@ -218,7 +248,7 @@ class LianaAutomation_WC {
 	 *
 	 * @return void
 	 */
-	public function lianaautomation_wc_realm_callback():void {
+	public function lianaautomation_wc_realm_callback(): void {
 		printf(
 			'<input class="regular-text" type="text" '
 			. 'name="lianaautomation_wc_options[lianaautomation_realm]" '
@@ -234,7 +264,7 @@ class LianaAutomation_WC {
 	 *
 	 * @return void
 	 */
-	public function lianaautomation_wc_user_callback():void {
+	public function lianaautomation_wc_user_callback(): void {
 		printf(
 			'<input class="regular-text" type="text" '
 			. 'name="lianaautomation_wc_options[lianaautomation_user]" '
@@ -250,7 +280,7 @@ class LianaAutomation_WC {
 	 *
 	 * @return void
 	 */
-	public function lianaautomation_wc_key_callback():void {
+	public function lianaautomation_wc_key_callback(): void {
 		printf(
 			'<input class="regular-text" type="text" '
 			. 'name="lianaautomation_wc_options[lianaautomation_key]" '
@@ -266,7 +296,7 @@ class LianaAutomation_WC {
 	 *
 	 * @return void
 	 */
-	public function lianaautomation_wc_channel_callback():void {
+	public function lianaautomation_wc_channel_callback(): void {
 		printf(
 			'<input class="regular-text" type="text" '
 			. 'name="lianaautomation_wc_options[lianaautomation_channel]" '
@@ -276,6 +306,43 @@ class LianaAutomation_WC {
 				: ''
 		);
 	}
+
+	/**
+	 * Automation marketing_permission
+	 *
+	 * @return void
+	 */
+	public function lianaautomation_wc_marketing_permission_callback(): void {
+		printf(
+			'<input class="regular-text" type="text" '
+			. 'name="lianaautomation_wc_options[lianaautomation_marketing_permission]" '
+			. 'placeholder="marketing_permission" '
+			. 'id="lianaautomation_marketing_permission" value="%s">'
+			. '<p class="description">Optional field</p>',
+			isset( $this->lianaautomation_wc_options['lianaautomation_marketing_permission'] )
+				? esc_attr( $this->lianaautomation_wc_options['lianaautomation_marketing_permission'] )
+				: 'marketing_permission'
+		);
+	}
+
+	/**
+	 * Additional User Meta Keys
+	 *
+	 * @return void
+	 */
+	public function lianaautomation_wc_user_meta_keys_callback(): void {
+		printf(
+			'<input class="regular-text" type="text" '
+			. 'name="lianaautomation_wc_options[lianaautomation_user_meta_keys]" '
+			. 'placeholder="locale" '
+			. 'id="lianaautomation_user_meta_keys" value="%s">'
+			. '<p class="description">Optional field. Separate keys by comma</p>',
+			isset( $this->lianaautomation_wc_options['lianaautomation_user_meta_keys'] )
+				? esc_attr( $this->lianaautomation_wc_options['lianaautomation_user_meta_keys'] )
+				: ''
+		);
+	}
+
 
 	/**
 	 * LianaAutomation WooCommerce Status check
@@ -289,36 +356,31 @@ class LianaAutomation_WC {
 			echo wp_kses_post( $return );
 			return null;
 		}
-		$user
-			= $this->lianaautomation_wc_options['lianaautomation_user'];
+		$user = $this->lianaautomation_wc_options['lianaautomation_user'];
 
 		if ( empty( $this->lianaautomation_wc_options['lianaautomation_key'] ) ) {
 			echo wp_kses_post( $return );
 			return null;
 		}
-		$secret
-			= $this->lianaautomation_wc_options['lianaautomation_key'];
+		$secret = $this->lianaautomation_wc_options['lianaautomation_key'];
 
 		if ( empty( $this->lianaautomation_wc_options['lianaautomation_realm'] ) ) {
 			echo wp_kses_post( $return );
 			return null;
 		}
-		$realm
-			= $this->lianaautomation_wc_options['lianaautomation_realm'];
+		$realm = $this->lianaautomation_wc_options['lianaautomation_realm'];
 
 		if ( empty( $this->lianaautomation_wc_options['lianaautomation_url'] ) ) {
 			echo wp_kses_post( $return );
 			return null;
 		}
-		$url
-			= $this->lianaautomation_wc_options['lianaautomation_url'];
+		$url = $this->lianaautomation_wc_options['lianaautomation_url'];
 
 		if ( empty( $this->lianaautomation_wc_options['lianaautomation_channel'] ) ) {
 			echo wp_kses_post( $return );
 			return null;
 		}
-		$channel
-			= $this->lianaautomation_wc_options['lianaautomation_channel'];
+		$channel = $this->lianaautomation_wc_options['lianaautomation_channel'];
 
 		/**
 		* General variables

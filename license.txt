@@ -1,6 +1,6 @@
 LianaAutomation for WooCommerce - Marketing Automation integration for the open-source eCommerce platform WooCommerce
 
-Copyright 2021, 2022 by Liana Technologies Oy.
+Copyright 2021, 2022, 2023, 2024 by Liana Technologies Oy.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

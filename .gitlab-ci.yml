@@ -1,6 +1,6 @@
 ---
 include:
-  - { project: devops/cicd-templates, ref: v1.11.1, file: secret-detection.gitlab-ci.yml }
+  - { project: lianatech/devops/cicd-templates, file: secret-detection.gitlab-ci.yml, ref: v1.22.9 }
 
 secret_detection:
   variables:
