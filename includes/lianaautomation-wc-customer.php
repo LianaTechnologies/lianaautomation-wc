@@ -2,7 +2,7 @@
 /**
  * LianaAutomation for WooCommerce Customer handler
  *
- * PHP Version 7.4
+ * PHP Version 8.1
  *
  * @package  LianaAutomation
  * @license  https://www.gnu.org/licenses/gpl-3.0-standalone.html GPL-3.0-or-later
@@ -186,8 +186,7 @@ function lianaautomation_wc_customer( $customer_id, $customer ) {
 	}
 	$response = stream_get_contents( $fp );
 	$response = json_decode( $response, true );
-
-};
+}
 
 add_action(
 	'woocommerce_created_customer',
@@ -195,4 +194,3 @@ add_action(
 	10,
 	3
 );
-

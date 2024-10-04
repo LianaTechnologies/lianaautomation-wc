@@ -2,7 +2,7 @@
 /**
  * LianaAutomation cookie (avoids redeclaration by other LianaAutomation plugins)
  *
- * PHP Version 7.4
+ * PHP Version 8.1
  *
  * @package  LianaAutomation
  * @license  https://www.gnu.org/licenses/gpl-3.0-standalone.html GPL-3.0-or-later

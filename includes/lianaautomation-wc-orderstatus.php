@@ -2,7 +2,7 @@
 /**
  * LianaAutomation for WooCommerce Order Status handler
  *
- * PHP Version 7.4
+ * PHP Version 8.1
  *
  * @package  LianaAutomation
  * @license  https://www.gnu.org/licenses/gpl-3.0-standalone.html GPL-3.0-or-later
@@ -278,7 +278,6 @@ function lianaautomation_wc_orderstatus( $order_id, $old_status, $new_status ) {
 	}
 	$response = stream_get_contents( $fp );
 	$response = json_decode( $response, true );
-
 }
 
 // This hook for order status changes in processing with line_item data intact!
