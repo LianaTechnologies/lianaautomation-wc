@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       LianaAutomation for WooCommerce
  * Description:       LianaAutomation for WooCommerce integrates the LianaAutomation marketing automation platform with a WordPress site with the WooCommerce plugin.
- * Version:           1.0.41
+ * Version:           1.1.0
  * Requires at least: 5.2
  * Requires PHP:      8.1
  * Author:            Liana Technologies Oy
@@ -25,22 +25,29 @@
 require_once __DIR__ . '/includes/lianaautomation-cookie.php';
 
 /**
+ * Include WooCommerce Cart Actions handler code
+ */
+require_once __DIR__ . '/includes/lianaautomation-api.php';
+
+/**
+ * Include WooCommerce Cart Actions handler code
+ */
+require_once __DIR__ . '/includes/lianaautomation-wc-cartactions.php';
+
+/**
  * Include WooCommerce Order Status handler code
  */
-require_once __DIR__
-	. '/includes/lianaautomation-wc-orderstatus.php';
+require_once __DIR__ . '/includes/lianaautomation-wc-orderstatus.php';
 
 /**
  * Include WooCommerce Login handler code
  */
-require_once __DIR__
-	. '/includes/lianaautomation-wc-login.php';
+require_once __DIR__ . '/includes/lianaautomation-wc-login.php';
 
 /**
  * Include WooCommerce Customer handler code
  */
-require_once __DIR__
-	. '/includes/lianaautomation-wc-customer.php';
+require_once __DIR__ . '/includes/lianaautomation-wc-customer.php';
 
 /**
  * Conditionally include admin panel code
