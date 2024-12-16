@@ -74,7 +74,7 @@ function lianaautomation_wc_login_send( $user_login, $logging_in_user ) {
 	}
 
 	// Alternative user desired marketing_permission key in usermeta.
-	$marketing_permission_key = 'marketing_permission';
+	$marketing_permission_key = null;
 	if ( ! empty( $lianaautomation_wc_options['lianaautomation_marketing_permission'] ) ) {
 		$marketing_permission_key = $lianaautomation_wc_options['lianaautomation_marketing_permission'];
 	}
@@ -107,61 +107,49 @@ function lianaautomation_wc_login_send( $user_login, $logging_in_user ) {
 		return false;
 	}
 
+	$customer_items = array(
+		'url'                     => $current_url,
+		'username'                => $user_login,
+		'email'                   => $logging_in_user->user_email,
+	);
+
 	// Try to fetch the marketing permission from the user meta.
-	$marketing_permission = get_user_meta( $logging_in_user->ID, $marketing_permission_key, true );
+	if ( ! is_null( $marketing_permission_key ) ) {
+		$marketing_permission = get_user_meta( $logging_in_user->ID, $marketing_permission_key, true );
+		$customer_items[ $marketing_permission_key ] = $marketing_permission;
+	}
 
-	$data = null;
-
-	if ( isset( $marketing_permission_key ) && isset( $marketing_permission ) && ! empty( $marketing_permission ) ) {
-		$customer_items = array(
-			'url'                     => $current_url,
-			'username'                => $user_login,
-			'email'                   => $logging_in_user->user_email,
-			$marketing_permission_key => $marketing_permission,
-		);
-		foreach ( $user_meta_keys as $user_meta_key ) {
-			// If the key is separated by comma and space, trim the spaces.
-			$user_meta_key = trim( $user_meta_key );
-			if ( 'locale' === $user_meta_key ) {
-				$user_meta_value = get_user_locale( $logging_in_user->ID );
-			} else {
-				$user_meta_value = get_user_meta( $logging_in_user->ID, $user_meta_key, true );
-			}
-			if ( ! empty( $user_meta_value ) ) {
-				// convert arrays and objects to string.
-				if ( is_array( $user_meta_value ) || is_object( $user_meta_value ) ) {
-					$user_meta_value = wp_json_encode( $user_meta_value );
-				}
-				// Automation doesnt like if key starts with underscore.
-				$ma_user_meta_key = ltrim( $user_meta_key, '_' );
-				$customer_items[ $ma_user_meta_key ] = $user_meta_value;
-			}
+	foreach ( $user_meta_keys as $user_meta_key ) {
+		// If the key is separated by comma and space, trim the spaces.
+		$user_meta_key = trim( $user_meta_key );
+		if ( 'locale' === $user_meta_key ) {
+			$user_meta_value = get_user_locale( $logging_in_user->ID );
+		} else {
+			$user_meta_value = get_user_meta( $logging_in_user->ID, $user_meta_key, true );
 		}
 
-		$automation_events = array(
-			array(
-				'verb'  => 'login',
-				'items' => array(
-					'url'      => $current_url,
-					'username' => $user_login,
-				),
-			),
-			array(
-				'verb'  => 'customer',
-				'items' => $customer_items,
-			),
-		);
-	} else {
-		$automation_events = array(
-			array(
-				'verb'  => 'login',
-				'items' => array(
-					'url'      => $current_url,
-					'username' => $user_login,
-				),
-			),
-		);
+		// convert arrays and objects to string.
+		if ( is_array( $user_meta_value ) || is_object( $user_meta_value ) ) {
+			$user_meta_value = wp_json_encode( $user_meta_value );
+		}
+		// Automation doesnt like if key starts with underscore.
+		$ma_user_meta_key = ltrim( $user_meta_key, '_' );
+		$customer_items[ $ma_user_meta_key ] = $user_meta_value;
 	}
+
+	$automation_events = array(
+		array(
+			'verb'  => 'login',
+			'items' => array(
+				'url'      => $current_url,
+				'username' => $user_login,
+			),
+		),
+		array(
+			'verb'  => 'customer',
+			'items' => $customer_items,
+		),
+	);
 
 	// Send the data to the API.
 	LianaAutomationAPI::send( $automation_events, $identity );

@@ -316,7 +316,7 @@ class LianaAutomation_WC {
 		printf(
 			'<input class="regular-text" type="text" '
 			. 'name="lianaautomation_wc_options[lianaautomation_marketing_permission]" '
-			. 'placeholder="marketing_permission" '
+			. 'placeholder="e.g. marketing_permission" '
 			. 'id="lianaautomation_marketing_permission" value="%s">'
 			. '<p class="description">Optional field</p>',
 			isset( $this->lianaautomation_wc_options['lianaautomation_marketing_permission'] )
@@ -334,7 +334,7 @@ class LianaAutomation_WC {
 		printf(
 			'<input class="regular-text" type="text" '
 			. 'name="lianaautomation_wc_options[lianaautomation_user_meta_keys]" '
-			. 'placeholder="locale" '
+			. 'placeholder="e.g. locale" '
 			. 'id="lianaautomation_user_meta_keys" value="%s">'
 			. '<p class="description">Optional field. Separate keys by comma</p>',
 			isset( $this->lianaautomation_wc_options['lianaautomation_user_meta_keys'] )
