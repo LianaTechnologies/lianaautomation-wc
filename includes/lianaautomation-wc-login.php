@@ -108,14 +108,13 @@ function lianaautomation_wc_login_send( $user_login, $logging_in_user ) {
 	}
 
 	$customer_items = array(
-		'url'                     => $current_url,
-		'username'                => $user_login,
-		'email'                   => $logging_in_user->user_email,
+		'login' => $user_login,
+		'email' => $logging_in_user->user_email,
 	);
 
 	// Try to fetch the marketing permission from the user meta.
 	if ( ! is_null( $marketing_permission_key ) ) {
-		$marketing_permission = get_user_meta( $logging_in_user->ID, $marketing_permission_key, true );
+		$marketing_permission                        = get_user_meta( $logging_in_user->ID, $marketing_permission_key, true );
 		$customer_items[ $marketing_permission_key ] = $marketing_permission;
 	}
 
@@ -133,7 +132,7 @@ function lianaautomation_wc_login_send( $user_login, $logging_in_user ) {
 			$user_meta_value = wp_json_encode( $user_meta_value );
 		}
 		// Automation doesnt like if key starts with underscore.
-		$ma_user_meta_key = ltrim( $user_meta_key, '_' );
+		$ma_user_meta_key                   = ltrim( $user_meta_key, '_' );
 		$customer_items[ $ma_user_meta_key ] = $user_meta_value;
 	}
 

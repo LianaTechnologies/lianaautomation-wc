@@ -26,13 +26,19 @@ function lianaautomation_wc_customer( $customer_id, $customer ) {
 		return false;
 	}
 
+	$lianaautomation_wc_options = get_option( 'lianaautomation_wc_options' );
+
 	// Gets liana_t tracking cookie if set.
 	$liana_t = null;
 	if ( isset( $_COOKIE['liana_t'] ) ) {
 		$liana_t = sanitize_key( $_COOKIE['liana_t'] );
 	}
 
-	$email = $customer['user_email'];
+	if ( $customer instanceof WC_Customer ) {
+		$email = $customer->get_email();
+	} else {
+		$email = $customer['user_email'];
+	}
 
 	if ( empty( $email ) ) {
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG === true ) {
@@ -43,15 +49,61 @@ function lianaautomation_wc_customer( $customer_id, $customer ) {
 		return false;
 	}
 
-	$automation_events   = array();
-	$automation_events[] = array(
-		'verb'  => 'customer',
-		'items' => array(
+	if ( $customer instanceof WC_Customer ) {
+		$customer_items = array(
+			'id'    => $customer_id,
+			'login' => $customer->get_username(),
+			'role'  => $customer->get_role(),
+			'email' => $email,
+		);
+	} else {
+		$customer_items = array(
 			'id'    => $customer_id,
 			'login' => $customer['user_login'],
 			'role'  => $customer['role'],
-			'email' => $customer['user_email'],
-		),
+			'email' => $email,
+		);
+	}
+
+	// Alternative user desired marketing_permission key in usermeta.
+	$marketing_permission_key = null;
+	if ( ! empty( $lianaautomation_wc_options['lianaautomation_marketing_permission'] ) ) {
+		$marketing_permission_key = $lianaautomation_wc_options['lianaautomation_marketing_permission'];
+	}
+
+	$user_meta_keys = array();
+	if ( ! empty( $lianaautomation_wc_options['lianaautomation_user_meta_keys'] ) ) {
+		$user_meta_keys = explode( ',', $lianaautomation_wc_options['lianaautomation_user_meta_keys'] );
+	}
+
+	// Try to fetch the marketing permission from the user meta.
+	if ( ! is_null( $marketing_permission_key ) ) {
+		$marketing_permission = get_user_meta( $customer_id, $marketing_permission_key, true );
+
+		$customer_items[ $marketing_permission_key ] = $marketing_permission;
+	}
+
+	foreach ( $user_meta_keys as $user_meta_key ) {
+		// If the key is separated by comma and space, trim the spaces.
+		$user_meta_key = trim( $user_meta_key );
+		if ( 'locale' === $user_meta_key ) {
+			$user_meta_value = get_user_locale( $customer_id );
+		} else {
+			$user_meta_value = get_user_meta( $customer_id, $user_meta_key, true );
+		}
+
+		// convert arrays and objects to string.
+		if ( is_array( $user_meta_value ) || is_object( $user_meta_value ) ) {
+			$user_meta_value = wp_json_encode( $user_meta_value );
+		}
+		// Automation doesnt like if key starts with underscore.
+		$customer_items[ ltrim( $user_meta_key, '_' ) ] = $user_meta_value;
+	}
+
+	$automation_events   = array();
+	$automation_events[] = array(
+		'verb'  => 'customer',
+		'items' => $customer_items,
 	);
 
 	$identity = array(
@@ -64,9 +116,5 @@ function lianaautomation_wc_customer( $customer_id, $customer ) {
 	LianaAutomationAPI::send( $automation_events, $identity );
 }
 
-add_action(
-	'woocommerce_created_customer',
-	'lianaautomation_wc_customer',
-	10,
-	3
-);
+add_action( 'woocommerce_created_customer', 'lianaautomation_wc_customer', 10, 3 );
+add_action( 'woocommerce_update_customer', 'lianaautomation_wc_customer', 10, 2 );

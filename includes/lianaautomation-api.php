@@ -1,7 +1,19 @@
 <?php
+/**
+ * LianaAutomation for WooCommerce API handler
+ *
+ * PHP Version 8.1
+ *
+ * @package  LianaAutomation
+ * @license  https://www.gnu.org/licenses/gpl-3.0-standalone.html GPL-3.0-or-later
+ * @link     https://www.lianatech.com
+ */
 
 namespace LianaAutomation;
 
+/**
+ * LianaAutomation for WooCommerce API handler
+ */
 class LianaAutomationAPI {
 	/**
 	 * The options array.
@@ -10,6 +22,9 @@ class LianaAutomationAPI {
 	 */
 	private static $options = array();
 
+	/**
+	 * Get the Liana Automation options.
+	 */
 	public static function get_options() {
 		if ( ! empty( self::$options ) ) {
 			return self::$options;
@@ -89,6 +104,9 @@ class LianaAutomationAPI {
 		return self::$options;
 	}
 
+	/**
+	 * Send the automation events to the API.
+	 */
 	public static function send( $automation_events, $identity ) {
 		$options = self::get_options();
 		if ( empty( $options ) ) {
