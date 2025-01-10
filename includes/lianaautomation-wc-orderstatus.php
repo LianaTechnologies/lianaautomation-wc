@@ -23,6 +23,15 @@ function lianaautomation_wc_orderstatus( $order_id, $old_status, $new_status ) {
 		return null;
 	}
 
+	// Gets liana_t tracking cookie if set.
+	$liana_t = null;
+	if ( isset( $_COOKIE['liana_t'] ) ) {
+		$liana_t = sanitize_key( $_COOKIE['liana_t'] );
+	} else {
+		// liana_t cookie not found, unable to track. Bailing out.
+		return false;
+	}
+
 	// Fetch the WooCommerce Order for further processing.
 	$order = wc_get_order( $order_id );
 
@@ -213,14 +222,20 @@ function lianaautomation_wc_orderstatus( $order_id, $old_status, $new_status ) {
 	// Import Data.
 	$path = 'v1/import';
 
+	$identity = array(
+		'email' => $email,
+	);
+
+	if ( ! empty( $liana_t ) ) {
+		$identity['token'] = $liana_t;
+	}
+
 	$data = array(
 		'channel'       => $channel,
 		'no_duplicates' => false,
 		'data'          => array(
 			array(
-				'identity' => array(
-					'email' => $email,
-				),
+				'identity' => $identity,
 				'events'   => $automation_events,
 			),
 		),

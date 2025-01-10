@@ -120,14 +120,19 @@ function lianaautomation_wc_customer( $customer_id, $customer ) {
 	// Import Data.
 	$path = 'v1/import';
 
+	$identity = array(
+		'email' => $email,
+	);
+	if ( ! empty( $liana_t ) ) {
+		$identity['token'] = $liana_t;
+	}
+
 	$data = array(
 		'channel'       => $channel,
 		'no_duplicates' => false,
 		'data'          => array(
 			array(
-				'identity' => array(
-					'email' => $email,
-				),
+				'identity' => $identity,
 				'events'   => $automation_events,
 			),
 		),
