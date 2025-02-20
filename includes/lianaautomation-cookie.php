@@ -22,6 +22,10 @@ if ( ! function_exists( 'liana_automation_cookie' ) && ! function_exists( 'Liana
 		if ( isset( $_COOKIE['liana_t'] ) ) {
 			$liana_t = sanitize_key( $_COOKIE['liana_t'] );
 		} else {
+			if ( ! headers_sent() ) {
+				// Send no-cache headers for dynamic cookie value.
+				header( 'Cache-Control: no-cache, must-revalidate' );
+			}
 			$liana_t = uniqid( '', true );
 			setcookie(
 				'liana_t',
