@@ -109,7 +109,15 @@ function lianaautomation_wc_customer( $customer_id, $customer ) {
 	$identity = array(
 		'email' => $email,
 	);
-	if ( ! empty( $liana_t ) ) {
+
+	// Check if logged in user and has a different email than the order.
+	$different_email = false;
+	$user = wp_get_current_user();
+	if ( $user->exists() ) {
+		$different_email = $email !== $user->user_email;
+	}
+	// Only add token if user email matches subscriber email.
+	if ( ! empty( $liana_t ) && ! $different_email ) {
 		$identity['token'] = $liana_t;
 	}
 
