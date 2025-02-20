@@ -25,16 +25,25 @@ function lianaautomation_wc_orderstatus( $order_id, $old_status, $new_status ) {
 		return null;
 	}
 
+<<<<<<< HEAD
 	$options = LianaAutomationAPI::get_options();
 	// API not available, bail out.
 	if ( empty( $options ) ) {
 		return false;
 	}
 
+=======
+>>>>>>> 7ff87e9c938f9522081eb1027eeee88e9b57faee
 	// Gets liana_t tracking cookie if set.
 	$liana_t = null;
 	if ( isset( $_COOKIE['liana_t'] ) ) {
 		$liana_t = sanitize_key( $_COOKIE['liana_t'] );
+<<<<<<< HEAD
+=======
+	} else {
+		// liana_t cookie not found, unable to track. Bailing out.
+		return false;
+>>>>>>> 7ff87e9c938f9522081eb1027eeee88e9b57faee
 	}
 
 	// Fetch the WooCommerce Order for further processing.
