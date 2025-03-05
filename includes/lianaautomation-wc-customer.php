@@ -65,22 +65,9 @@ function lianaautomation_wc_customer( $customer_id, $customer ) {
 		);
 	}
 
-	// Alternative user desired marketing_permission key in usermeta.
-	$marketing_permission_key = null;
-	if ( ! empty( $lianaautomation_wc_options['lianaautomation_marketing_permission'] ) ) {
-		$marketing_permission_key = $lianaautomation_wc_options['lianaautomation_marketing_permission'];
-	}
-
 	$user_meta_keys = array();
 	if ( ! empty( $lianaautomation_wc_options['lianaautomation_user_meta_keys'] ) ) {
 		$user_meta_keys = explode( ',', $lianaautomation_wc_options['lianaautomation_user_meta_keys'] );
-	}
-
-	// Try to fetch the marketing permission from the user meta.
-	if ( ! is_null( $marketing_permission_key ) ) {
-		$marketing_permission = get_user_meta( $customer_id, $marketing_permission_key, true );
-
-		$customer_items[ $marketing_permission_key ] = $marketing_permission;
 	}
 
 	foreach ( $user_meta_keys as $user_meta_key ) {

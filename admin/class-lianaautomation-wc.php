@@ -147,22 +147,6 @@ class LianaAutomation_WC {
 			'lianaautomation_wc_section' // section.
 		);
 
-		add_settings_field(
-			'lianaautomation_wc_marketing_permission', // id.
-			'User meta key for Marketing Permission', // title.
-			array( $this, 'lianaautomation_wc_marketing_permission_callback' ), // callback.
-			'lianaautomation_wc_admin', // page.
-			'lianaautomation_wc_section' // section.
-		);
-
-		add_settings_field(
-			'lianaautomation_wc_user_meta_keys', // id.
-			'Additional user meta keys', // title.
-			array( $this, 'lianaautomation_wc_user_meta_keys_callback' ), // callback.
-			'lianaautomation_wc_admin', // page.
-			'lianaautomation_wc_section' // section.
-		);
-
 		// Status check.
 		add_settings_field(
 			'lianaautomation_wc_status_check', // id.
@@ -170,6 +154,30 @@ class LianaAutomation_WC {
 			array( $this, 'lianaautomation_wc_connection_check_callback' ), // callback.
 			'lianaautomation_wc_admin', // page.
 			'lianaautomation_wc_section' // section.
+		);
+
+		// Meta Keys Section
+		add_settings_section(
+			'lianaautomation_wc_section_meta_keys', // id.
+			'Meta Keys', // section title text.
+			array( $this, 'lianaautomation_wc_section_meta_keys_info' ), // callback.
+			'lianaautomation_wc_admin' // page.
+		);
+
+		add_settings_field(
+			'lianaautomation_wc_user_meta_keys', // id.
+			'Additional User Meta Keys', // title.
+			array( $this, 'lianaautomation_wc_user_meta_keys_callback' ), // callback.
+			'lianaautomation_wc_admin', // page.
+			'lianaautomation_wc_section_meta_keys' // section.
+		);
+
+		add_settings_field(
+			'lianaautomation_wc_order_meta_keys', // id.
+			'Additional Order Meta Keys', // title.
+			array( $this, 'lianaautomation_wc_order_meta_keys_callback' ), // callback.
+			'lianaautomation_wc_admin', // page.
+			'lianaautomation_wc_section_meta_keys' // section.
 		);
 	}
 
@@ -203,13 +211,13 @@ class LianaAutomation_WC {
 			$sanitary_values['lianaautomation_channel']
 				= sanitize_text_field( $input['lianaautomation_channel'] );
 		}
-		if ( isset( $input['lianaautomation_marketing_permission'] ) ) {
-			$sanitary_values['lianaautomation_marketing_permission']
-				= sanitize_text_field( $input['lianaautomation_marketing_permission'] );
-		}
 		if ( isset( $input['lianaautomation_user_meta_keys'] ) ) {
 			$sanitary_values['lianaautomation_user_meta_keys']
 				= sanitize_text_field( $input['lianaautomation_user_meta_keys'] );
+		}
+		if ( isset( $input['lianaautomation_order_meta_keys'] ) ) {
+			$sanitary_values['lianaautomation_order_meta_keys']
+				= sanitize_text_field( $input['lianaautomation_order_meta_keys'] );
 		}
 		return $sanitary_values;
 	}
@@ -225,6 +233,11 @@ class LianaAutomation_WC {
 			printf( '<p>By entering valid API credentials below, you enable this plugin to send personal information of your site visitors to Liana Technologies Oy.</p>' );
 			printf( '<p>In most cases, this plugin <b>must</b> be accompanied by a <i>consent management solution</i>.</p>' );
 			printf( '<p>If unsure, do not use this plugin.</p>' );
+	}
+
+	public function lianaautomation_wc_section_meta_keys_info(): void {
+		// Generate info text section.
+		printf( '<p>These are optional fields. If you have meta keys in your user and/or order data, which need to be sent to LianaAutomation, you can add them here.</p>' );
 	}
 
 	/**
@@ -308,37 +321,36 @@ class LianaAutomation_WC {
 	}
 
 	/**
-	 * Automation marketing_permission
-	 *
-	 * @return void
-	 */
-	public function lianaautomation_wc_marketing_permission_callback(): void {
-		printf(
-			'<input class="regular-text" type="text" '
-			. 'name="lianaautomation_wc_options[lianaautomation_marketing_permission]" '
-			. 'placeholder="e.g. marketing_permission" '
-			. 'id="lianaautomation_marketing_permission" value="%s">'
-			. '<p class="description">Optional field</p>',
-			isset( $this->lianaautomation_wc_options['lianaautomation_marketing_permission'] )
-				? esc_attr( $this->lianaautomation_wc_options['lianaautomation_marketing_permission'] )
-				: 'marketing_permission'
-		);
-	}
-
-	/**
 	 * Additional User Meta Keys
 	 *
 	 * @return void
 	 */
 	public function lianaautomation_wc_user_meta_keys_callback(): void {
+		$value = $this->lianaautomation_wc_options['lianaautomation_user_meta_keys'] ?? '';
 		printf(
 			'<input class="regular-text" type="text" '
 			. 'name="lianaautomation_wc_options[lianaautomation_user_meta_keys]" '
-			. 'placeholder="e.g. locale" '
+			. 'placeholder="key1,key2,key3" '
 			. 'id="lianaautomation_user_meta_keys" value="%s">'
-			. '<p class="description">Optional field. Separate keys by comma</p>',
-			isset( $this->lianaautomation_wc_options['lianaautomation_user_meta_keys'] )
-				? esc_attr( $this->lianaautomation_wc_options['lianaautomation_user_meta_keys'] )
+			. '<p class="description">Separate keys by comma</p>',
+			esc_attr( $value )
+		);
+	}
+
+	/**
+	 * Additional Order Meta Keys
+	 *
+	 * @return void
+	 */
+	public function lianaautomation_wc_order_meta_keys_callback(): void {
+		printf(
+			'<input class="regular-text" type="text" '
+			. 'name="lianaautomation_wc_options[lianaautomation_order_meta_keys]" '
+			. 'placeholder="key1,key2,key3" '
+			. 'id="lianaautomation_order_meta_keys" value="%s">'
+			. '<p class="description">Separate keys by comma</p>',
+			isset( $this->lianaautomation_wc_options['lianaautomation_order_meta_keys'] )
+				? esc_attr( $this->lianaautomation_wc_options['lianaautomation_order_meta_keys'] )
 				: ''
 		);
 	}

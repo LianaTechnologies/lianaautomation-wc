@@ -40,58 +40,77 @@ function lianaautomation_wc_orderstatus( $order_id, $old_status, $new_status ) {
 	// Fetch the WooCommerce Order for further processing.
 	$order = wc_get_order( $order_id );
 
+	$lianaautomation_wc_options = get_option( 'lianaautomation_wc_options' );
+	$order_meta_keys            = $lianaautomation_wc_options['lianaautomation_order_meta_keys'] ?? '';
+	$order_meta                 = array();
+
+	if ( $order_meta_keys ) {
+		foreach ( explode( ',', $order_meta_keys ) as $meta_key ) {
+			$meta_key   = trim( $meta_key );
+			$meta_value = $order->get_meta( $meta_key );
+			if ( $meta_value ) {
+				$order_meta[ $meta_key ] = $meta_value;
+			}
+		}
+	}
+
 	/*
 	 * Construct Automation "order/orderrows" events array from WooCommerce items
 	 * See also:
 	 * https://www.businessbloomer.com/woocommerce-easily-get-order-info-total-items-etc-from-order-object/
 	 */
-	$line_items          = $order->get_items();
-	$automation_events   = array();
+	$line_items             = $order->get_items();
+	$automation_events      = array();
+	$automation_event_items = array(
+		'status'                       => $new_status,
+		'id'                           => $order_id,
+		'total'                        => $order->get_total(),
+		'taxes'                        => $order->get_total_tax(),
+		'currency'                     => $order->get_currency(),
+		'customer_id'                  => $order->get_customer_id(),
+		'user_id'                      => $order->get_user_id(),
+		'customer_ip_address'          => $order->get_customer_ip_address(),
+		'customer_user_agent'          => $order->get_customer_user_agent(),
+		'created_via'                  => $order->get_created_via(),
+		'customer_note'                => $order->get_customer_note(),
+		'billing_first_name'           => $order->get_billing_first_name(),
+		'billing_last_name'            => $order->get_billing_last_name(),
+		'billing_company'              => $order->get_billing_company(),
+		'billing_address_1'            => $order->get_billing_address_1(),
+		'billing_address_2'            => $order->get_billing_address_2(),
+		'billing_city'                 => $order->get_billing_city(),
+		'billing_state'                => $order->get_billing_state(),
+		'billing_postcode'             => $order->get_billing_postcode(),
+		'billing_country'              => $order->get_billing_country(),
+		'billing_email'                => $order->get_billing_email(),
+		'billing_phone'                => $order->get_billing_phone(),
+		'shipping_first_name'          => $order->get_shipping_first_name(),
+		'shipping_last_name'           => $order->get_shipping_last_name(),
+		'shipping_company'             => $order->get_shipping_company(),
+		'shipping_address_1'           => $order->get_shipping_address_1(),
+		'shipping_address_2'           => $order->get_shipping_address_2(),
+		'shipping_city'                => $order->get_shipping_city(),
+		'shipping_state'               => $order->get_shipping_state(),
+		'shipping_postcode'            => $order->get_shipping_postcode(),
+		'shipping_country'             => $order->get_shipping_country(),
+		'address'                      => $order->get_address(),
+		'shipping_address_map_url'     => $order->get_shipping_address_map_url(),
+		'formatted_billing_full_name'  => $order->get_formatted_billing_full_name(),
+		'formatted_shipping_full_name' => $order->get_formatted_shipping_full_name(),
+		'formatted_billing_address'    => $order->get_formatted_billing_address(),
+		'formatted_shipping_address'   => $order->get_formatted_shipping_address(),
+	);
+
+	if ( $order_meta ) {
+		$automation_event_items = array_merge( $automation_event_items, $order_meta );
+	}
+
 	$automation_events[] = array(
 		'verb'  => 'order',
-		'items' => array(
-			'status'                       => $new_status,
-			'id'                           => $order_id,
-			'total'                        => $order->get_total(),
-			'taxes'                        => $order->get_total_tax(),
-			'currency'                     => $order->get_currency(),
-			'customer_id'                  => $order->get_customer_id(),
-			'user_id'                      => $order->get_user_id(),
-			'customer_ip_address'          => $order->get_customer_ip_address(),
-			'customer_user_agent'          => $order->get_customer_user_agent(),
-			'created_via'                  => $order->get_created_via(),
-			'customer_note'                => $order->get_customer_note(),
-			'billing_first_name'           => $order->get_billing_first_name(),
-			'billing_last_name'            => $order->get_billing_last_name(),
-			'billing_company'              => $order->get_billing_company(),
-			'billing_address_1'            => $order->get_billing_address_1(),
-			'billing_address_2'            => $order->get_billing_address_2(),
-			'billing_city'                 => $order->get_billing_city(),
-			'billing_state'                => $order->get_billing_state(),
-			'billing_postcode'             => $order->get_billing_postcode(),
-			'billing_country'              => $order->get_billing_country(),
-			'billing_email'                => $order->get_billing_email(),
-			'billing_phone'                => $order->get_billing_phone(),
-			'shipping_first_name'          => $order->get_shipping_first_name(),
-			'shipping_last_name'           => $order->get_shipping_last_name(),
-			'shipping_company'             => $order->get_shipping_company(),
-			'shipping_address_1'           => $order->get_shipping_address_1(),
-			'shipping_address_2'           => $order->get_shipping_address_2(),
-			'shipping_city'                => $order->get_shipping_city(),
-			'shipping_state'               => $order->get_shipping_state(),
-			'shipping_postcode'            => $order->get_shipping_postcode(),
-			'shipping_country'             => $order->get_shipping_country(),
-			'address'                      => $order->get_address(),
-			'shipping_address_map_url'     => $order->get_shipping_address_map_url(),
-			'formatted_billing_full_name'  => $order->get_formatted_billing_full_name(),
-			'formatted_shipping_full_name' => $order->get_formatted_shipping_full_name(),
-			'formatted_billing_address'    => $order->get_formatted_billing_address(),
-			'formatted_shipping_address'   => $order->get_formatted_shipping_address(),
-		),
+		'items' => $automation_event_items,
 	);
 
 	foreach ( $line_items as $item_id => $item ) {
-
 		// Get product categories.
 		$category_terms = get_the_terms( $item->get_product_id(), 'product_cat' );
 		$category_names = array();

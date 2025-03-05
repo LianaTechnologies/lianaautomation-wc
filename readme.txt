@@ -4,7 +4,7 @@ Tags: automation, online store, ecommerce, e-commerce, woocommerce
 Requires at least: 5.8
 Tested up to: 6.7.2
 Requires PHP: 8.1
-Stable tag: 1.1.4
+Stable tag: 1.1.5
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0-standalone.html
 
@@ -87,6 +87,10 @@ Manual installation method requires downloading the LianaAutomation plugin and u
 Automatic updates should work smoothly, but we still recommend you back up your site.
 
 == Changelog ==
+
+= 1.1.5 2025-03-05 =
+* **Change:** Enabled sending additional order meta data to LianaAutomation.
+* **Change:** Deprecated marketing permission field. Field key is automatically appended to user meta keys.
 
 = 1.1.4 2025-02-20 =
 * **Fix:** Set 'Cache-Control: no-cache, must-revalidate' header when creating liana_t cookie
