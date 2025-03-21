@@ -9,6 +9,8 @@
  * @link     https://www.lianatech.com
  */
 
+use LianaAutomation\LianaAutomationAPI;
+
 if ( ! function_exists( 'liana_automation_cookie' ) && ! function_exists( 'Liana_Automation_cookie' ) ) {
 	/**
 	 * Cookie Function
@@ -18,23 +20,15 @@ if ( ! function_exists( 'liana_automation_cookie' ) && ! function_exists( 'Liana
 	 * @return void
 	 */
 	function liana_automation_cookie(): void {
-		// Generates liana_t tracking cookie if not set.
-		if ( isset( $_COOKIE['liana_t'] ) ) {
-			$liana_t = sanitize_key( $_COOKIE['liana_t'] );
-		} else {
-			if ( ! headers_sent() ) {
-				// Send no-cache headers for dynamic cookie value.
-				header( 'Cache-Control: no-cache, must-revalidate' );
-			}
-			$liana_t = uniqid( '', true );
-			setcookie(
-				'liana_t',
-				$liana_t,
-				time() + 315569260,
-				COOKIEPATH,
-				COOKIE_DOMAIN
-			);
+		$gtm_url = LianaAutomationAPI::get_channel_gtm_url();
+		if ( ! $gtm_url ) {
+			return;
 		}
+
+		$src = LIANAAUTOMATION_WC_URL . 'front/lianaautomation-cookie.js';
+
+		wp_enqueue_script( 'lianaautomation-gtm', $gtm_url, array(), LIANAAUTOMATION_WC_VERSION, true );
+		wp_enqueue_script( 'lianaautomation-cookie', $src, array(), LIANAAUTOMATION_WC_VERSION, true );
 	}
 
 	add_action( 'wp_head', 'liana_automation_cookie', 1, 0 );

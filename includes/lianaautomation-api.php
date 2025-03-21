@@ -106,8 +106,66 @@ class LianaAutomationAPI {
 
 	/**
 	 * Send the automation events to the API.
+	 *
+	 * @param array $automation_events The automation events to send.
+	 * @param array $identity The identity of the user.
 	 */
 	public static function send( $automation_events, $identity ) {
+		$options = self::get_options();
+		if ( empty( $options ) ) {
+			return false;
+		}
+
+		// Import Data.
+		$action = 'import';
+		$data = array(
+			'channel'       => $options['channel'],
+			'no_duplicates' => false,
+			'data'          => array(
+				array(
+					'identity' => $identity,
+					'events'   => $automation_events,
+				),
+			),
+		);
+
+		return self::request( $action, $data );
+	}
+
+	/**
+	 * Get selected channel's GTM URL.
+	 */
+	public static function get_channel_gtm_url() {
+		$gtm_cached = get_transient( 'lianaautomation_gtm_url' );
+		if ( false !== $gtm_cached ) {
+			return $gtm_cached;
+		}
+		$options = self::get_options();
+		if ( empty( $options ) ) {
+			return false;
+		}
+		$channel = intval( $options['channel'] ?? 0 );
+		$action = 'channel/list';
+		$channels = self::request( $action );
+		if ( ! $channels ) {
+			return false;
+		}
+		foreach ( $channels as $ch ) {
+			if ( $ch['id'] === $channel ) {
+				set_transient( 'lianaautomation_gtm_url', $ch['gtm_url'], DAY_IN_SECONDS );
+				return $ch['gtm_url'];
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Send the automation events to the API.
+	 *
+	 * @param string $api_action The action to perform.
+	 * @param array  $data The data to send.
+	 */
+	public static function request( $api_action, $data = null ) {
 		$options = self::get_options();
 		if ( empty( $options ) ) {
 			return false;
@@ -117,27 +175,14 @@ class LianaAutomationAPI {
 		$secret  = $options['secret'];
 		$url     = $options['url'];
 		$realm   = $options['realm'];
-		$channel = $options['channel'];
 
 		/**
 		* General variables
 		*/
-		$base_path    = 'rest';             // Base path of the api end points.
-		$content_type = 'application/json'; // Content will be send as json.
-		$method       = 'POST';             // Method is always POST.
-
-		// Import Data.
-		$path = 'v1/import';
-		$data = array(
-			'channel'       => $channel,
-			'no_duplicates' => false,
-			'data'          => array(
-				array(
-					'identity' => $identity,
-					'events'   => $automation_events,
-				),
-			),
-		);
+		$base_path    = 'rest';              // Base path of the api end points.
+		$content_type = 'application/json';  // Content will be send as json.
+		$method       = 'POST';              // Method is always POST.
+		$path         = 'v1/' . $api_action; // The action we are performing.
 
 		// Encode our body content data.
 		$data = wp_json_encode( $data );
@@ -191,5 +236,7 @@ class LianaAutomationAPI {
 		}
 		$response = stream_get_contents( $fp );
 		$response = json_decode( $response, true );
+
+		return $response;
 	}
 }

@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       LianaAutomation for WooCommerce
  * Description:       LianaAutomation for WooCommerce integrates the LianaAutomation marketing automation platform with a WordPress site with the WooCommerce plugin.
- * Version:           1.1.5
+ * Version:           1.1.6
  * Requires at least: 5.2
  * Requires PHP:      8.1
  * Author:            Liana Technologies Oy
@@ -18,6 +18,11 @@
  * @license  https://www.gnu.org/licenses/gpl-3.0-standalone.html GPL-3.0-or-later
  * @link     https://www.lianatech.com
  */
+
+define( 'LIANAAUTOMATION_WC_VERSION', '1.1.6' );
+
+// define plugin url
+define( 'LIANAAUTOMATION_WC_URL', plugin_dir_url( __FILE__ ) );
 
 function lianaautomation_wc_deprecate_mp() {
 	// Merge deprecated permission meta key to user meta keys.
@@ -42,14 +47,14 @@ function lianaautomation_wc_deprecate_mp() {
 register_activation_hook( __FILE__, 'lianaautomation_wc_deprecate_mp' );
 
 /**
- * Include cookie handler code
- */
-require_once __DIR__ . '/includes/lianaautomation-cookie.php';
-
-/**
  * Include WooCommerce Cart Actions handler code
  */
 require_once __DIR__ . '/includes/lianaautomation-api.php';
+
+/**
+ * Include cookie handler code
+ */
+require_once __DIR__ . '/includes/lianaautomation-cookie.php';
 
 /**
  * Include WooCommerce Cart Actions handler code

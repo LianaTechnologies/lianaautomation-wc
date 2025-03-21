@@ -210,6 +210,7 @@ class LianaAutomation_WC {
 		if ( isset( $input['lianaautomation_channel'] ) ) {
 			$sanitary_values['lianaautomation_channel']
 				= sanitize_text_field( $input['lianaautomation_channel'] );
+			delete_transient( 'lianaautomation_gtm_url' );
 		}
 		if ( isset( $input['lianaautomation_user_meta_keys'] ) ) {
 			$sanitary_values['lianaautomation_user_meta_keys']
